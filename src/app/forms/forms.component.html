@@ -1,0 +1,119 @@
+<main>
+    <h2>
+        MEDLINE.COM
+    </h2>
+    <h1>
+        Account Registration
+    </h1>
+    <h3>
+        USER INFORMATION
+    </h3>
+    <section>
+        <!-- form container -->
+        <div class="row">
+            <div class="alert alert-danger" role="alert" *ngIf="alertStatus">
+                Please review errors.
+            </div>
+            <div class="col-md-8 offset-md-2">
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm">
+                    <h4>
+                        USER INFORMATION
+                    </h4>
+                    <div class="row">
+                        <div class="form-group col-lg-6  col-md-6">
+                            <label for="firstName">First Name*</label>
+                            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName"
+                                #firstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }"
+                                required />
+                            <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
+                                <div *ngIf="firstName.errors.required"><span
+                                        class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> First
+                                    Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6  col-md-6">
+                            <label for="lastName">Last Name*</label>
+                            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName"
+                                #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
+                                required />
+                            <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
+                                <div *ngIf="lastName.errors.required"><span class="glyphicon glyphicon-exclamation-sign"
+                                        aria-hidden="true"></span> Last Name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4 col-md-4">
+                            <label for="phone">Phone*</label>
+                            <input type="tel" class="form-control" name="phone" [(ngModel)]="model.phone"
+                                #phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required
+                                minlength="6" />
+                            <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
+                                <div *ngIf="phone.errors.required"><span class="glyphicon glyphicon-exclamation-sign"
+                                        aria-hidden="true"></span> Phone is required</div>
+                                <div *ngIf="phone.errors.minlength"><span class="glyphicon glyphicon-exclamation-sign"
+                                        aria-hidden="true"></span> Phone must be at least 6 characters</div>
+                            </div>
+                        </div>
+                        <div class="form-group  col-lg-2  col-md-2">
+                            <label for="confirmext">Confirm ext</label>
+                            <input type="ext" class="form-control" name="confirmext" [(ngModel)]="model.confirmext"
+                                #confirmext="ngModel" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-6  col-md-6">
+                            <label for="email">Email*</label>
+                            <input type="email" class="form-control" name="email" [(ngModel)]="model.email"
+                                #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required
+                                email />
+                            <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                                <div *ngIf="email.errors.required"><span class="glyphicon glyphicon-exclamation-sign"
+                                        aria-hidden="true"></span> Email is required</div>
+                                <div *ngIf="email.errors.email"><span class="glyphicon glyphicon-exclamation-sign"
+                                        aria-hidden="true"></span> Email must be a valid email address</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-success pull-right" (click)="errorAlert(f)">NEXT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+<div *ngIf="showPopup">
+    <div class="form-modal">
+
+        <div class="form-modal-body" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">User Information</h5>
+                        <button type="button" class="close" (click)="closePopup()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+
+                            <label>User</label> {{model.firstName}} {{model.lastName}}
+                        </div>
+                        <div>
+
+                            <label>Phone</label> {{model.phone}}
+                        </div>
+                        <div>
+
+                            <label>Email</label> {{model.email}}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success col-lg-2" (click)="closePopup()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
